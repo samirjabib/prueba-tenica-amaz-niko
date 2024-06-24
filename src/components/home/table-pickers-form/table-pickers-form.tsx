@@ -6,13 +6,13 @@ import { Button } from "../../ui/button";
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "../../ui/dialog";
 import { Input } from "@/components/ui/input";
 import { PhoneInput } from "@/components/ui/phone-input";
+import { TablePickersInputDate } from "./table-pickers-input-date";
 
 export default function TablePickersForm() {
   return (
@@ -31,6 +31,12 @@ export default function TablePickersForm() {
         <div>
           <Label htmlFor="email">Adrees</Label>
           <Input type="email" id="email" placeholder="Insert adrees" />
+        </div>
+        <div className="flex flex-col">
+          <Label htmlFor="email" className="mb-1">
+            Date
+          </Label>
+          <TablePickersInputDate />
         </div>
 
         <div>
