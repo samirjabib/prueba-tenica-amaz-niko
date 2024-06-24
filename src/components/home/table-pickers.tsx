@@ -8,92 +8,90 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Button } from "../ui/button";
+import TablePickersActions from "./table-pickers-actions";
 
-const invoices = [
+const pickers = [
   {
-    invoice: "INV001",
-    paymentStatus: "Paid",
-    totalAmount: "$250.00",
-    paymentMethod: "Credit Card",
+    name: "John Doe",
+    pickUpTime: "2024-06-24 10:00",
+    address: "123 Main St",
+    phone: "(555) 123-4567",
+    materialKg: "15",
   },
   {
-    invoice: "INV002",
-    paymentStatus: "Pending",
-    totalAmount: "$150.00",
-    paymentMethod: "PayPal",
+    name: "Jane Smith",
+    pickUpTime: "2024-06-24 11:00",
+    address: "456 Oak Ave",
+    phone: "(555) 987-6543",
+    materialKg: "20",
   },
   {
-    invoice: "INV003",
-    paymentStatus: "Unpaid",
-    totalAmount: "$350.00",
-    paymentMethod: "Bank Transfer",
+    name: "Mike Johnson",
+    pickUpTime: "2024-06-24 12:00",
+    address: "789 Pine Rd",
+    phone: "(555) 555-5555",
+    materialKg: "25",
   },
   {
-    invoice: "INV004",
-    paymentStatus: "Paid",
-    totalAmount: "$450.00",
-    paymentMethod: "Credit Card",
+    name: "Emily Davis",
+    pickUpTime: "2024-06-24 13:00",
+    address: "321 Birch Ln",
+    phone: "(555) 666-6666",
+    materialKg: "30",
   },
   {
-    invoice: "INV005",
-    paymentStatus: "Paid",
-    totalAmount: "$550.00",
-    paymentMethod: "PayPal",
+    name: "David Wilson",
+    pickUpTime: "2024-06-24 14:00",
+    address: "654 Maple Dr",
+    phone: "(555) 777-7777",
+    materialKg: "35",
   },
   {
-    invoice: "INV006",
-    paymentStatus: "Pending",
-    totalAmount: "$200.00",
-    paymentMethod: "Bank Transfer",
+    name: "Sarah Brown",
+    pickUpTime: "2024-06-24 15:00",
+    address: "987 Cedar St",
+    phone: "(555) 888-8888",
+    materialKg: "40",
   },
   {
-    invoice: "INV007",
-    paymentStatus: "Unpaid",
-    totalAmount: "$300.00",
-    paymentMethod: "Credit Card",
+    name: "James Taylor",
+    pickUpTime: "2024-06-24 16:00",
+    address: "159 Elm St",
+    phone: "(555) 999-9999",
+    materialKg: "45",
   },
 ];
 
 export default function TablePickers() {
   return (
     <div>
-      <div className="flex flex-row justify-between">
-        <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl mb-8">
-          Pickers
-        </h1>
-        <div className="flex flex-row gap-x-4">
-          <Button variant={"outline"}>See picker on map</Button>
-          <Button>Add Picker</Button>
-        </div>
-      </div>
-
+      <TablePickersActions />
       <Table>
         <TableCaption>A list of your recent pickers.</TableCaption>
         <TableHeader>
           <TableRow>
-            <TableHead className="w-[100px]">Invoice</TableHead>
-            <TableHead>Status</TableHead>
-            <TableHead>Method</TableHead>
-            <TableHead className="text-right">Amount</TableHead>
+            <TableHead className="w-[100px]">Name</TableHead>
+            <TableHead>Pick-up Time</TableHead>
+            <TableHead>Address</TableHead>
+            <TableHead className="text-right">Phone</TableHead>
+            <TableHead className="text-right">Material (Kg)</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
-          {invoices.map((invoice) => (
-            <TableRow key={invoice.invoice}>
-              <TableCell className="font-medium">{invoice.invoice}</TableCell>
-              <TableCell>{invoice.paymentStatus}</TableCell>
-              <TableCell>{invoice.paymentMethod}</TableCell>
-              <TableCell className="text-right">
-                {invoice.totalAmount}
-              </TableCell>
+          {pickers.map((picker) => (
+            <TableRow key={picker.name}>
+              <TableCell className="font-medium">{picker.name}</TableCell>
+              <TableCell>{picker.pickUpTime}</TableCell>
+              <TableCell>{picker.address}</TableCell>
+              <TableCell className="text-right">{picker.phone}</TableCell>
+              <TableCell className="text-right">{picker.materialKg}</TableCell>
             </TableRow>
           ))}
         </TableBody>
         <TableFooter>
           <TableRow>
-            <TableCell colSpan={3}>Total</TableCell>
-            <TableCell className="text-right">$2,500.00</TableCell>
+            <TableCell colSpan={4}>Total</TableCell>
+            <TableCell className="text-right">210 Kg</TableCell>
           </TableRow>
         </TableFooter>
       </Table>
