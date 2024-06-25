@@ -21,27 +21,10 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { useState } from "react";
-
-const formSchema = z.object({
-  name: z.string().min(2, {
-    message: "Username must be at least 2 characters.",
-  }),
-  phone: z.string().min(10, {
-    message: "Phone number must be at least 10 digits.",
-  }),
-  pickUpTime: z.date({ message: "Pick-up time is required" }),
-  address: z.string().nonempty({
-    message: "Address is required",
-  }),
-  material: z.string().nonempty({
-    message: "Material is required",
-  }),
-  quantity: z.string().nonempty({ message: "Quantity is required" }),
-});
+import { formSchema, FormData } from "@/lib/validations";
 
 export default function TablePickersForm() {
-  const form = useForm<z.infer<typeof formSchema>>({
+  const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: "",
@@ -55,6 +38,15 @@ export default function TablePickersForm() {
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     console.log(values);
+    const response = fetch("/api/insert-picker", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(values),
+    });
+
+    console.log(response);
   }
 
   return (
