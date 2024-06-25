@@ -2,7 +2,6 @@
 import { Button } from "../../ui/button";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-
 import {
   Dialog,
   DialogContent,
@@ -10,7 +9,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "../../ui/dialog";
-
 import { Input } from "@/components/ui/input";
 import { PhoneInput } from "@/components/ui/phone-input";
 import { TablePickersInputDate } from "./table-pickers-input-date";
@@ -33,22 +31,27 @@ const formSchema = z.object({
     message: "Phone number must be at least 10 digits.",
   }),
   pickUpTime: z.date({ message: "Pick-up time is required" }),
-  address: z.string({
+  address: z.string().nonempty({
     message: "Address is required",
   }),
-  material: z.string({
+  material: z.string().nonempty({
     message: "Material is required",
   }),
-  quantity: z.string({ message: "Quantity is required" }),
+  quantity: z.string().nonempty({ message: "Quantity is required" }),
 });
 
 export default function TablePickersForm() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: {},
+    defaultValues: {
+      name: "",
+      phone: "",
+      pickUpTime: new Date(),
+      address: "",
+      material: "",
+      quantity: "",
+    },
   });
-
-  const [date, setDate] = useState<Date>();
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     console.log(values);
@@ -74,7 +77,7 @@ export default function TablePickersForm() {
                 <FormItem>
                   <FormLabel>Name</FormLabel>
                   <FormControl>
-                    <Input placeholder="Inser username" {...field} />
+                    <Input placeholder="Insert username" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -87,9 +90,8 @@ export default function TablePickersForm() {
                 <FormItem>
                   <FormLabel>Address</FormLabel>
                   <FormControl>
-                    <Input placeholder="Inser address" {...field} />
+                    <Input placeholder="Insert address" {...field} />
                   </FormControl>
-
                   <FormMessage />
                 </FormItem>
               )}
@@ -141,7 +143,7 @@ export default function TablePickersForm() {
                         type="text"
                         {...field}
                         id="material"
-                        placeholder="Insert quantity"
+                        placeholder="Insert material"
                       />
                     </FormControl>
                     <FormMessage />
