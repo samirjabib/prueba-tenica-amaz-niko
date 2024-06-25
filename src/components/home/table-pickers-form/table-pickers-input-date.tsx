@@ -13,9 +13,13 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 
-export function TablePickersInputDate() {
-  const [date, setDate] = React.useState<Date>();
-
+export function TablePickersInputDate({
+  date,
+  setDate,
+}: {
+  date: Date | undefined;
+  setDate: React.Dispatch<React.SetStateAction<Date | undefined>>;
+}) {
   return (
     <Popover>
       <PopoverTrigger asChild>

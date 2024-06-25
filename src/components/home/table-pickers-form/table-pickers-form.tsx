@@ -1,6 +1,4 @@
 "use client";
-
-import { Label } from "@/components/ui/label";
 import { Button } from "../../ui/button";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -12,6 +10,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "../../ui/dialog";
+
 import { Input } from "@/components/ui/input";
 import { PhoneInput } from "@/components/ui/phone-input";
 import { TablePickersInputDate } from "./table-pickers-input-date";
@@ -19,12 +18,12 @@ import { z } from "zod";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { useState } from "react";
 
 const formSchema = z.object({
   name: z.string().min(2, {
@@ -33,19 +32,23 @@ const formSchema = z.object({
   phone: z.string().min(10, {
     message: "Phone number must be at least 10 digits.",
   }),
-  pickUpTime: z.string(),
-  address: z.string(),
-  material: z.string(),
-  quantity: z.string(),
+  pickUpTime: z.date({ message: "Pick-up time is required" }),
+  address: z.string({
+    message: "Address is required",
+  }),
+  material: z.string({
+    message: "Material is required",
+  }),
+  quantity: z.string({ message: "Quantity is required" }),
 });
 
 export default function TablePickersForm() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: {
-      name: "",
-    },
+    defaultValues: {},
   });
+
+  const [date, setDate] = useState<Date>();
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     console.log(values);
@@ -98,7 +101,10 @@ export default function TablePickersForm() {
                 <FormItem>
                   <FormLabel>Pickup time</FormLabel>
                   <FormControl>
-                    <TablePickersInputDate />
+                    <TablePickersInputDate
+                      date={field.value}
+                      setDate={field.onChange}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -112,6 +118,7 @@ export default function TablePickersForm() {
                   <FormLabel>Phone</FormLabel>
                   <FormControl>
                     <PhoneInput
+                      {...field}
                       type="text"
                       id="phone"
                       placeholder="Insert phone"
@@ -132,6 +139,7 @@ export default function TablePickersForm() {
                     <FormControl>
                       <Input
                         type="text"
+                        {...field}
                         id="material"
                         placeholder="Insert quantity"
                       />
@@ -148,6 +156,7 @@ export default function TablePickersForm() {
                     <FormLabel>Quantity</FormLabel>
                     <FormControl>
                       <Input
+                        {...field}
                         type="number"
                         id="quantity"
                         placeholder="Insert quantity"
@@ -158,7 +167,9 @@ export default function TablePickersForm() {
                 )}
               />
             </div>
-            <Button type="submit">Submit</Button>
+            <Button type="submit" className="w-full">
+              Enviar
+            </Button>
           </form>
         </Form>
       </DialogContent>
