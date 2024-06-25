@@ -18,7 +18,9 @@ export default function TablePickersForm() {
   return (
     <Dialog>
       <DialogTrigger>
-        <Button>Add Picker</Button>
+        <div className="bg-primary text-primary-foreground p-2 px-6 rounded-md">
+          Add Picker
+        </div>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px] w-[95%] rounded-lg">
         <DialogHeader>
@@ -38,7 +40,6 @@ export default function TablePickersForm() {
           </Label>
           <TablePickersInputDate />
         </div>
-
         <div>
           <Label htmlFor="email">Email</Label>
           <PhoneInput
@@ -58,6 +59,7 @@ export default function TablePickersForm() {
             <Input type="email" id="email" placeholder="Insert quantity" />
           </div>
         </div>
+        <Button>Enviar formulario</Button>
       </DialogContent>
     </Dialog>
   );

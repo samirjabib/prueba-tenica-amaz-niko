@@ -12,7 +12,9 @@ export default function TablePickersMap() {
   return (
     <Dialog>
       <DialogTrigger>
-        <Button variant={"outline"}>See picker on map</Button>
+        <div className="border border-gray-200 text-primary p-2 px-6 rounded-md hover:bg-primary/10 transition-all">
+          See picker on map
+        </div>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
